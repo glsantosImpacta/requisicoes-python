@@ -1,11 +1,17 @@
 from requests import api
 
-cep = "06660-460"
-url = f"http://viacep.com.br/ws/{cep}/json"
-retorno = api.get(url).json()
+def busca_cep(cep):
 
-logradouro = retorno['logradouro']
-cidade = retorno['localidade']
-estado = retorno['uf']
+    url = f"http://viacep.com.br/ws/{cep}/json"
+    endereco = api.get(url).json()
 
-print(f"{logradouro} - {cidade} - {estado}")
+    return endereco
+
+cep = input("Insira um CEP: ")
+endereco = busca_cep(cep)
+
+print("---Consulta de CEP---")
+print(f"CEP informado: {cep}")
+print(f"Estado: {endereco['uf']}")
+print(f"Cidade: {endereco['localidade']}")
+print(f"Logradouro: {endereco['logradouro']}")
